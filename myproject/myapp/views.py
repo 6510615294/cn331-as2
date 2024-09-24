@@ -7,3 +7,9 @@ def index(request):
 
 def about(request):
     return HttpResponse("<h1>about</h1>")
+
+def quota_request(request):
+    return HttpResponse("<h1>Quota Page WIP</h1>")
+
+def quota_result(request):
+    return HttpResponse("<h1>Result Page WIP</h1>")
