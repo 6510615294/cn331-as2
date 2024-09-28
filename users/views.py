@@ -3,13 +3,15 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    name = "Kawin"
+    surname = "Sangsivarit"
+    return render(request, "index.html", {"name":name, "surname":surname})
 
 def about(request):
-    return HttpResponse("<h1>about</h1>")
+    return render(request, "about.html")
 
 def quota_request(request):
-    return HttpResponse("<h1>Quota Page WIP</h1>")
+    return render(request, "quota_request.html")
 
 def quota_result(request):
-    return HttpResponse("<h1>Result Page WIP</h1>")
+    return render(request, "quota_result.html")
