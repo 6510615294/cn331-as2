@@ -1,7 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>
+    <h1 align="center">
         Quota Request WIP
     </h1>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">code</th>
+            <th scope="col">name</th>
+            <th scope="col">year</th>
+            <th scope="col">semester</th>
+            <th scope="col">sec</th>
+            <th scope="col">date</th>
+            <th scope="col">teacher</th>
+            <th scope="col">request</th>
+            <th scope="col">seat</th>
+            <th scope="col">note</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for subject in subjects %}
+          <tr>
+            <th scope="row">1</th>
+            <td>{{subject.code}}</td>
+            <td>{{subject.name}}</td>
+            <td>{{subject.year}}</td>
+            <td>{{subject.semester}}</td>
+            <td>{{subject.sec}}</td>
+            <td>{{subject.date}}</td>
+            <td>{{subject.teacher}}</td>
+            <td>{{subject.request}}</td>
+            <td>{{subject.seat}}</td>
+            <td>{{subject.none}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
 {% endblock %}
