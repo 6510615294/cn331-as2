@@ -24,6 +24,7 @@ def registeration(request):
         Student_ID = request.POST["Student ID"]
         name = request.POST["name"]
         surname = request.POST["surname"]
+
         password = request.POST["password"]
         password2 = request.POST["password2"]
         
@@ -37,17 +38,9 @@ def registeration(request):
             )
             User_Pass.save()
              
-            Naksuksa =Student.objects.create(
-                SID = Student_ID,
-                first = name,
-                last = surname,
-            )
-            
-            # User_Pass = User
-            #     SID =Student_ID,
-            #     username = username,
-            #     password = password,
-            #     password2 = password2,
+            Naksuksa =Student(SID = User_Pass,
+                              first = name,
+                              last = surname)
             Naksuksa.save()
             messages.success(request, "registered successfully")
             return redirect("/")
