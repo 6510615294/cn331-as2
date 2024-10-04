@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Subject
+from .models import Subject, Student
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -19,4 +20,20 @@ def quota_result(request):
     return render(request, "quota_result.html")
 
 def registeration(request):
-    return render(request, "register.html")
+    if request.method == "POST":
+        Student_ID = request.POST["Student ID"]
+        name = request.POST["name"]
+        surname = request.POST["surname"]
+        faculty = request.POST["faculty"]
+        
+        Naksuksa =Student.objects.create(
+            SID= Student_ID,
+            first = name,
+            last = surname,
+            faculty = faculty
+        )
+        Naksuksa.save()
+        messages.success(request, "registered successfully")
+        return redirect("/")
+    else:
+        return render(request, "register.html")

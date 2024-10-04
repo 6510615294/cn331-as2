@@ -8,7 +8,8 @@
 </head>
 <body>
     <h1 class="text-center">registeration</h1>
-    <form>
+    <form method="post" action="register">
+        {% csrf_token %}
         <div class="form_group">
             <label for="SID"> Student ID</label>
             <input type="text" name="Student ID" class="form-control">
