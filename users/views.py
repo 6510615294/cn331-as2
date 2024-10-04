@@ -17,3 +17,6 @@ def quota_request(request):
 
 def quota_result(request):
     return render(request, "quota_result.html")
+
+def registeration(request):
+    return render(request, "register.html")

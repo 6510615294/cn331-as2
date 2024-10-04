@@ -7,11 +7,12 @@ class Subject(models.Model):
     year = models.IntegerField()
     semester = models.IntegerField()
     sec = models.CharField(max_length=6)
-    date = models.DateField()
+    date = models.CharField(max_length=50)
     teacher = models.CharField(max_length=100)
     request = models.IntegerField()
     seat = models.IntegerField()
     note = models.CharField(max_length=100)
+    
     def __str__(self):
         return f"{self.code}, {self.name}, {self.year}, {self.semester}, {self.sec}, {self.date}, {self.teacher}, {self.request} {self.seat}, {self.note}"
     
