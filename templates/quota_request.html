@@ -8,25 +8,25 @@
     <table class="table table-bordered table-striped" style="width:75%" align="center">
         <thead>
           <tr>
-            <th scope="col">code</th>
-            <th scope="col">name</th>
-            <th scope="col">year</th>
-            <th scope="col">semester</th>
-            <th scope="col">request</th>
-            <th scope="col">seat</th>
-            <th scope="col">note</th>
+            <th scope="col" align="center">code</th>
+            <th scope="col" align="center">name</th>
+            <th scope="col" align="center">year</th>
+            <th scope="col" align="center">semester</th>
+            <th scope="col" align="center">request</th>
+            <th scope="col" align="center">seat</th>
+            <th scope="col" align="center">note</th>
           </tr>
         </thead>
         <tbody>
         {% for subject in subjects %}
           <tr>
-            <td>{{subject.code}}</td>
+            <td align="center">{{subject.code}}</td>
             <td>{{subject.name}}</td>
-            <td>{{subject.year}}</td>
-            <td>{{subject.semester}}</td>
-            <td>{{subject.request}}</td>
-            <td>{{subject.seat}}</td>
-            <td>{{subject.none}}</td>
+            <td align="center">{{subject.year}}</td>
+            <td align="center">{{subject.semester}}</td>
+            <td align="center">{{subject.request}}</td>
+            <td align="center">{{subject.seat}}</td>
+            <td align="center">{{subject.none}}</td>
           </tr>
         {% endfor %}
         </tbody>

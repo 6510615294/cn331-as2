@@ -7,15 +7,23 @@
     <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
 </head>
 <body>
+    
     <div class="wrapper" style="background-image: url('{% static 'assets/dome.jpg' %}');">
-        <form action="">
+        {% if messages %}
+                {% for message in messages %}
+                    <strong>{{message}}</strong>
+                {% endfor %}
+        {% endif %}
+            <form action="" method = "POST">
+            {% csrf_token %}
           <h1>Login</h1>
+            
           <div class="input-box">
-            <input type="text" placeholder="Username (Your Student ID)" required>
+            <input type="text" placeholder="Username (Your Student ID)" name="username" required>
             <i class='bx bxs-user'></i>
           </div>
           <div class="input-box">
-            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Password" required name="password">
             <i class='bx bxs-lock-alt'></i>
           </div>
           <button type="submit" class="btn">Login</button>
