@@ -1,0 +1,120 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: cursive;
+}
+
+/* Body styling with background image */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("/static/assets/evening.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Navigation menu styling */
+.nav {
+    background: #007bff;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.nav-link {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.nav-link.active {
+    background-color: #0056b3;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.nav-link:hover {
+    background-color: #66BB6A;
+    color: #ffffff;
+}
+
+/* Main container and row */
+.container {
+    margin-top: 30px;
+    background-color: rgba(255, 255, 255, 10); /* Transparent background */
+    border-radius: 12px;
+    padding: 30px 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.col-md-auto ul {
+    padding-left: 0;
+}
+
+.row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+/* Content wrapper */
+.wrapper {
+    width: 420px;
+    background: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 30px 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 36px;
+    text-align: center;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+.form_group {
+    width: 100%;
+    margin: 15px 0;
+}
+
+.form_group label {
+    color: #333333;
+    font-size: 16px;
+}
+
+.form_group input {
+    width: 100%;
+    height: 50px;
+    background: #f8f9fa;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333333;
+    padding: 10px;
+}
+
+.form_group input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* Button styling */
+.btn {
+    width: 100%;
+    height: 45px;
+    background: #007bff;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
