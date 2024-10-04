@@ -2,12 +2,12 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Subject, Student
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # Create your views here.
-def index(request):
-    name = "Kawin"
-    surname = "Sangsivarit"
-    return render(request, "index.html", {"name":name, "surname":surname})
+def login(request):
+    return render(request, "login.html")
 
 def about(request):
     return render(request, "about.html")
@@ -24,16 +24,32 @@ def registeration(request):
         Student_ID = request.POST["Student ID"]
         name = request.POST["name"]
         surname = request.POST["surname"]
-        faculty = request.POST["faculty"]
+        password = request.POST["password"]
+        password2 = request.POST["password2"]
         
-        Naksuksa =Student.objects.create(
-            SID= Student_ID,
-            first = name,
-            last = surname,
-            faculty = faculty
-        )
-        Naksuksa.save()
-        messages.success(request, "registered successfully")
-        return redirect("/")
+        if password != password2:
+            messages.error(request, "Password must be the same one!")
+            return redirect("register")
+        else:
+            User_Pass = User.objects.create(
+                username = Student_ID,
+                password = password
+            )
+            User_Pass.save()
+             
+            Naksuksa =Student.objects.create(
+                SID = Student_ID,
+                first = name,
+                last = surname,
+            )
+            
+            # User_Pass = User
+            #     SID =Student_ID,
+            #     username = username,
+            #     password = password,
+            #     password2 = password2,
+            Naksuksa.save()
+            messages.success(request, "registered successfully")
+            return redirect("/")
     else:
         return render(request, "register.html")

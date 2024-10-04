@@ -7,26 +7,35 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 class="text-center">registeration</h1>
+    <h1 class="text-center">Registeration</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <strong>{{message}}</strong>
+        {% endfor %}
+    {% endif %}
     <form method="post" action="register">
         {% csrf_token %}
         <div class="form_group">
             <label for="SID"> Student ID</label>
-            <input type="text" name="Student ID" class="form-control">
+            <input type="text" name="Student ID" class="form-control" required>
         </div>
         <div class="form_group">
             <label for="first"> first name</label>
-            <input type="text" name="name" class="form-control">
+            <input type="text" name="name" class="form-control" required>
         </div>
         <div class="form_group">
             <label for="last"> surname</label>
-            <input type="text" name="surname" class="form-control">
+            <input type="text" name="surname" class="form-control" required>
         </div>
-        <div class="form_group mb-3">
-            <label for="faculty"> faculty</label>
-            <input type="text" name="faculty" class="form-control">
+        <div class="form_group">
+            <label for="password">Password</label>
+            <input type="text" name="password" class="form-control" required>
         </div>
-        <input type="submit" value="register" class="btn btn-success">
+        <div class="form_group">
+            <label for="password2">Password Again</label>
+            <input type="text" name="password2" class="form-control" required>
+        </div>
+        <input type="submit" value="register" class="btn btn-success" required>
 
     </form>
 </body>
