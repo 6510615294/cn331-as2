@@ -12,9 +12,11 @@
     <div class="wrapper">
         <h1 class="text-center">Registration</h1>
         {% if messages %}
-            {% for message in messages %}
-                <strong>{{ message }}</strong>
-            {% endfor %}
+            <div class="alert alert-danger" role="alert">
+                {% for message in messages %}
+                    <strong>{{ message }}</strong>
+                {% endfor %}
+            </div>
         {% endif %}
         <form method="post" action="register">
             {% csrf_token %}

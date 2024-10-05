@@ -7,11 +7,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
 </head>
 <body>
+    
     <div class="wrapper" style="background-image: url('{% static 'assets/dome.jpg' %}');">
         {% if messages %}
-                {% for message in messages %}
-                    <strong>{{message}}</strong>
-                {% endfor %}
+          <div class="alert alert success" role="alert">
+              {% for message in messages %}
+                  <strong>{{message}}</strong>
+              {% endfor %}
+          </div>
+                
         {% endif %}
             <form action="" method = "POST">
             {% csrf_token %}

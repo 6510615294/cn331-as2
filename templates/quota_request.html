@@ -5,16 +5,17 @@
         Quota Request WIP
     </h1>
 
-    <table class="table table-bordered table-striped" style="width:75%" align="center">
+    <table class="table table-bordered table-striped" style="width:70%" align="center">
         <thead>
           <tr>
-            <th scope="col" align="center">code</th>
-            <th scope="col" align="center">name</th>
-            <th scope="col" align="center">year</th>
-            <th scope="col" align="center">semester</th>
-            <th scope="col" align="center">request</th>
-            <th scope="col" align="center">seat</th>
-            <th scope="col" align="center">note</th>
+            <th scope="col-6" align="center">Course Code</th>
+            <th scope="col" align="center">Course Name</th>
+            <th scope="col" align="center">Year</th>
+            <th scope="col" align="center">Semester</th>
+            <th scope="col" align="center">Request</th>
+            <th scope="col" align="center">Seat</th>
+            <th scope="col" align="center">Note</th>
+            <th scope="col" align="center">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -26,9 +27,24 @@
             <td align="center">{{subject.semester}}</td>
             <td align="center">{{subject.request}}</td>
             <td align="center">{{subject.seat}}</td>
-            <td align="center">{{subject.none}}</td>
+            <td align="center">{{subject.note}}</td>
+            <td align="center">
+              {% if subject.code in request.user.student.my_subject %}
+                <button type="btn btn-secondary" disabled>Registered</button>
+              {% else %}
+                <a type="button" class="btn btn-primary" href="{% url 'register_subject' subject.id %}">Register</a>
+              {% endif %}
+            </td>
           </tr>
         {% endfor %}
         </tbody>
       </table>
+
+        {% if messages %}
+          <div class="alert alert success" role="alert">
+              {% for message in messages %}
+                  <strong>{{message}}</strong>
+              {% endfor %}
+          </div>
+        {% endif %}
 {% endblock %}

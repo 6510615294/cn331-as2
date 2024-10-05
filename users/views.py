@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from .models import Subject, Student
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -36,8 +36,10 @@ def about(request):
     return render(request, "about.html")
 
 def quota_request(request):
-    data=Subject.objects.all()
-    return render(request, "quota_request.html",{"subjects":data})
+    subjects = Subject.objects.all()
+    student = Student.objects.get(SID=request.user)
+    
+    return render(request, "quota_request.html", {"subjects": subjects, "student": student})
 
 def quota_result(request):
     return render(request, "quota_result.html")
@@ -47,14 +49,18 @@ def registeration(request):
         Student_ID = request.POST["Student ID"]
         name = request.POST["name"]
         surname = request.POST["surname"]
-
         password = request.POST["password"]
         password2 = request.POST["password2"]
         
         if password != password2:
             messages.error(request, "Password must be the same one!")
-            return redirect("register")
-        else:
+            return redirect("/register")
+        
+        elif User.objects.filter(username=Student_ID):
+            messages.error(request, "This Student ID is already used!! ")
+            return redirect("/register")
+        
+        else:    
             User_Pass = User.objects.create_user(
                 username = Student_ID,
                 password = password
@@ -69,3 +75,18 @@ def registeration(request):
             return redirect("/")
     else:
         return render(request, "register.html")
+    
+def register_subject(request, subject_id):
+    subject = get_object_or_404(Subject, id= subject_id)
+    student = get_object_or_404(Student, SID=request.user)
+    
+    if subject.seat > subject.request:
+        subject.request += 1
+        subject.save()
+        
+        student.add_to_list(subject.code)
+        messages.success(request, "Registered the course successfully")
+    else:
+        messages.error(request, "No seats available")
+    
+    return redirect("/request")
