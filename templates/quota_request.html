@@ -1,50 +1,30 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <h1 align="center">
-        Quota Request WIP
-    </h1>
+{% block namepage %}
+  Quota Request
+{% endblock %}
 
-    <table class="table table-bordered table-striped" style="width:70%" align="center">
-        <thead>
-          <tr>
-            <th scope="col-6" align="center">Course Code</th>
-            <th scope="col" align="center">Course Name</th>
-            <th scope="col" align="center">Year</th>
-            <th scope="col" align="center">Semester</th>
-            <th scope="col" align="center">Request</th>
-            <th scope="col" align="center">Seat</th>
-            <th scope="col" align="center">Note</th>
-            <th scope="col" align="center">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for subject in subjects %}
-          <tr>
-            <td align="center">{{subject.code}}</td>
-            <td>{{subject.name}}</td>
-            <td align="center">{{subject.year}}</td>
-            <td align="center">{{subject.semester}}</td>
-            <td align="center">{{subject.request}}</td>
-            <td align="center">{{subject.seat}}</td>
-            <td align="center">{{subject.note}}</td>
-            <td align="center">
-              {% if subject.code in request.user.student.my_subject %}
-                <button type="btn btn-secondary" disabled>Registered</button>
-              {% else %}
-                <a type="button" class="btn btn-primary" href="{% url 'register_subject' subject.id %}">Register</a>
-              {% endif %}
-            </td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-
-        {% if messages %}
-          <div class="alert alert success" role="alert">
-              {% for message in messages %}
-                  <strong>{{message}}</strong>
-              {% endfor %}
-          </div>
-        {% endif %}
+{% block tabledata%}
+  {% for subject in subjects %}
+    <tr>
+      <td align="center">{{ subject.code }}</td>
+      <td>{{subject.name}}</td>
+      <td align="center">{{subject.year}}</td>
+      <td align="center">{{subject.semester}}</td>
+      <td align="center">{{subject.request}}</td>
+      <td align="center">{{subject.seat}}</td>
+      <td align="center">{{subject.note}}</td>
+      <td align="center">
+      {% if subject.code in request.user.student.my_subject %}
+        <button type="button" class="btn btn-success" style="vertical-align: middle;" disabled>Enrolled</button>
+      {% elif subject.status == "Unavailable" %}
+        <button type="button" class="btn btn-dark" style="vertical-align: middle;" disabled>Closed</button>
+      {% elif subject.request >= subject.seat %}
+        <button type="button" class="btn btn-danger" style="vertical-align: middle;" disabled>Full</button>
+      {% else %}
+        <a type="button" class="btn btn-primary" href="{% url 'register_subject' subject.id %}" style="vertical-align: middle;">Enroll</a>
+      {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
 {% endblock %}

@@ -22,7 +22,9 @@ def login_toweb(request):
             login(request, user)
             if user.is_staff:
                 return redirect("/admin")
-            return render(request, "quota_request.html")
+            subjects = Subject.objects.all()
+            student = Student.objects.get(SID=request.user)
+            return render(request, "quota_request.html", {"subjects": subjects, "student": student})
         else:
             messages.error(request, "Invalid Username or Password")
             return render(request, "login.html")
@@ -36,13 +38,19 @@ def about(request):
     return render(request, "about.html")
 
 def quota_request(request):
-    subjects = Subject.objects.all()
-    student = Student.objects.get(SID=request.user)
-    
-    return render(request, "quota_request.html", {"subjects": subjects, "student": student})
+    if request.user.is_authenticated:
+        subjects = Subject.objects.all()
+        student = Student.objects.get(SID=request.user)
+        return render(request, "quota_request.html", {"subjects": subjects, "student": student})
+    else:
+        messages.error(request, "You need to log in to access this page.")
+        return redirect("login")
 
 def quota_result(request):
-    return render(request, "quota_result.html")
+    student = get_object_or_404(Student, SID=request.user)
+    registered_subjects = Subject.objects.filter(code__in=student.my_subject)
+    return render(request, "quota_result.html", {"registered_subjects": registered_subjects, "student": student})
+
 
 def registeration(request):
     if request.method == "POST":
@@ -85,8 +93,24 @@ def register_subject(request, subject_id):
         subject.save()
         
         student.add_to_list(subject.code)
-        messages.success(request, "Registered the course successfully")
+        subject.add_to_list(f"{student.SID} {student.first} {student.last}")
+        messages.success(request, "Enroll successfully")
     else:
         messages.error(request, "No seats available")
     
     return redirect("/request")
+
+def cancel_registration(request, subject_id):
+    subject = get_object_or_404(Subject, id=subject_id)
+    student = get_object_or_404(Student, SID=request.user)
+
+    if subject.code in student.my_subject:
+        student.remove_form_list(subject.code)
+        subject.remove_form_list(f"{student.SID} {student.first} {student.last}")
+        subject.request -= 1
+        subject.save()
+        messages.success(request, "Drop successfully.")
+    else:
+        messages.error(request, "You are not registered for this course.")
+
+    return redirect('/result')

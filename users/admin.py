@@ -4,8 +4,8 @@ from .models import Subject, Student
 # Register your models here.
 class Subject_Add(admin.ModelAdmin):
     model = Subject
-    exclude = ['request']
-    list_display = ['code', 'name', 'semester', 'year', 'seat', 'note', 'status']
+    exclude = ['request','my_student']
+    list_display = ['code', 'name', 'semester', 'year', 'seat', 'note', 'status', 'my_student']
     
 class Student_Display(admin.ModelAdmin):
     model = Student

@@ -19,8 +19,20 @@ class Subject(models.Model):
         choices=Status.choices,
         default=Status.AVAILABLE,
     )
+    my_student = models.JSONField(default=list)
+    
     def __str__(self):
         return f"{self.code}, {self.name}, {self.semester},  {self.year}, {self.request}, {self.seat}, {self.note}, {self.status}"
+        
+    def add_to_list(self,item):
+        self.my_student.append(item)
+        self.save()
+        
+    def remove_form_list(self, item):
+        if item in self.my_student:
+            self.my_student.remove(item)
+            self.save()
+        
     
 class Student(models.Model):
     SID = models.OneToOneField(User, on_delete=models.CASCADE)

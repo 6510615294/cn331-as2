@@ -68,5 +68,15 @@ h1 {
 }
 
 .btn:hover {
-    background: #0056b3;
+    background: #007bff;
+}
+
+.btn-custom {
+    background-color: #35dc35;
+    color: white;
+    border: none;
+}
+
+.btn-custom:hover {
+    background-color: #35dc35;
 }

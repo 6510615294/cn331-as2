@@ -1,39 +1,22 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <h1 align="center">
-        Quota Result WIP
-    </h1>
+{% block namepage %}
+  Quota Result
+{% endblock %}
 
-    <table class="table table-bordered table-striped" style="width:70%" align="center">
-        <thead>
+{% block tabledata %}
+        {% for subject in registered_subjects %}
           <tr>
-            <th scope="col-6" align="center">Course Code</th>
-            <th scope="col" align="center">Course Name</th>
-            <th scope="col" align="center">Year</th>
-            <th scope="col" align="center">Semester</th>
-            <th scope="col" align="center">Request</th>
-            <th scope="col" align="center">Seat</th>
-            <th scope="col" align="center">Note</th>
-            <th scope="col" align="center">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for subject in subjects %}
-          <tr>
-            <td align="center">{{subject.code}}</td>
-            <td>{{subject.name}}</td>
-            <td align="center">{{subject.year}}</td>
-            <td align="center">{{subject.semester}}</td>
-            <td align="center">{{subject.request}}</td>
-            <td align="center">{{subject.seat}}</td>
-            <td align="center">{{subject.none}}</td>
+            <td align="center">{{ subject.code }}</td>
+            <td>{{ subject.name }}</td>
+            <td align="center">{{ subject.year }}</td>
+            <td align="center">{{ subject.semester }}</td>
+            <td align="center">{{ subject.request }}</td>
+            <td align="center">{{ subject.seat }}</td>
+            <td align="center">{{ subject.note }}</td>
             <td align="center">
-              {% if subject.code in request.user.student.my_subject %}
-                <button type="btn btn-secondary" disabled>Cancelled</button>
-              {% else %}
-                <a type="button" class="btn btn-primary" href="{% url 'register_subject' subject.id %}">Cancel</a>
-              {% endif %}
+              <a type="button" href="{% url 'cancel_registration' subject.id %}" class="btn" 
+                 style="background-color: #dc3545; color: white;">Drop</a>
             </td>
           </tr>
         {% endfor %}
