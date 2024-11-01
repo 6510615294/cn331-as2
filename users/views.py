@@ -34,17 +34,14 @@ def logout_formweb(request):
     logout(request)
     return redirect("/")
 
-def about(request):
-    return render(request, "about.html")
-
-def quota_request(request):
-    if request.user.is_authenticated:
-        subjects = Subject.objects.all()
-        student = Student.objects.get(SID=request.user)
-        return render(request, "quota_request.html", {"subjects": subjects, "student": student})
-    else:
-        messages.error(request, "You need to log in to access this page.")
-        return redirect("login")
+# def quota_request(request):
+#     if request.user.is_authenticated:
+#         subjects = Subject.objects.all()
+#         student = Student.objects.get(SID=request.user)
+#         return render(request, "quota_request.html", {"subjects": subjects, "student": student})
+#     else:
+#         messages.error(request, "You need to log in to access this page.")
+#         return redirect("login")
 
 def quota_result(request):
     student = get_object_or_404(Student, SID=request.user)
