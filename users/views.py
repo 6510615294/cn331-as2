@@ -43,17 +43,13 @@ def quota_request(request):
         messages.error(request, "You need to log in to access this page.")
         return redirect("/")
 
-# def about(request):
-#     return render(request, "about.html")
-
-
 def quota_result(request):
     student = get_object_or_404(Student, SID=request.user)
     registered_subjects = Subject.objects.filter(code__in=student.my_subject)
     return render(request, "quota_result.html", {"registered_subjects": registered_subjects, "student": student})
 
 
-def registeration(request):
+def registration(request):
     if request.method == "POST":
         Student_ID = request.POST["Student ID"]
         name = request.POST["name"]
