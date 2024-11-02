@@ -51,7 +51,7 @@ def quota_result(request):
 
 def registration(request):
     if request.method == "POST":
-        Student_ID = request.POST["Student ID"]
+        Student_ID = request.POST["Student_ID"]
         name = request.POST["name"]
         surname = request.POST["surname"]
         password = request.POST["password"]
