@@ -16,5 +16,6 @@ jobs:
         pip install --user -r requirements.txt
         python manage.py makemigrations users
         python manage.py migrate
+        pip install coverage
         coverage run --source='.' manage.py test
         coverage report
